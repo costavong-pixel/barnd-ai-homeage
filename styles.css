@@ -49,6 +49,7 @@ nav a:hover, .footer-links a:hover { color: var(--teal-dark); }
 .nav-cta { padding: 9px 14px; border-radius: 999px; color: white !important; background: var(--teal); }
 .mobile-menu { display: none; }
 .eyebrow { margin: 0 0 12px; color: var(--teal-dark); font-size: .77rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+.hero.compact:not(:has(.badge)) .eyebrow:before { content: "FOUNDING 500 LIFETIME DEAL"; display: inline-block; margin: 0 0 16px; padding: 6px 10px; color: #6b4c00; background: var(--yellow); border-radius: 999px; font-size: .72rem; letter-spacing: .04em; vertical-align: middle; }
 .eyebrow.blue { color: var(--blue); }
 .hero { overflow: hidden; padding: 92px 0 82px; background: radial-gradient(circle at 88% 5%, rgba(110, 220, 187, .42) 0, transparent 27%), radial-gradient(circle at 9% 15%, rgba(166, 203, 255, .34) 0, transparent 30%), linear-gradient(145deg, #fbfffd, #effaf7 52%, #eef4ff); }
 .hero.compact { padding: 68px 0 62px; }
