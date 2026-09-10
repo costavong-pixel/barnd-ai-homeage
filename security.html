@@ -1,55 +1,9 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="How Barnd AI SEO Pro protects customer credentials, isolates WordPress installations and routes AI provider access through the Barnd API.">
-  <title>Security — Barnd AI SEO Pro</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<header><div class="wrap nav"><a class="brand" href="index.html">Barnd <span>AI</span></a><nav aria-label="Primary"><a href="seo-pro.html">SEO Pro</a><a href="pricing.html">Pricing</a><a href="docs.html">Docs</a><a href="security.html">Security</a><a href="faq.html">FAQ</a><a href="support.html">Support</a></nav></div></header>
-<main class="wrap legal">
-  <p class="eyebrow">SEO Pro security</p>
-  <h1>Customer WordPress sites do not receive our AI provider key.</h1>
-  <p class="lead">Barnd AI SEO Pro separates customer installation identity from upstream AI provider credentials. The goal is to limit the blast radius of a compromised WordPress site and make cross-customer access fail closed.</p>
-
-  <div class="notice"><strong>Core boundary:</strong> WordPress authenticates to Barnd AI SEO API. The Barnd API authenticates to the configured AI provider. Those are different credentials and different trust boundaries.</div>
-
-  <h2>Per-installation signing</h2>
-  <p>Each hardened Pro installation can use its own Ed25519 key pair. The private signing key remains with the WordPress installation. The API stores the public identity needed to verify signed requests.</p>
-  <div class="codebox">Site A private key ──signed request──▶ Barnd API ◀── public key A
-Site B private key ──signed request──▶ Barnd API ◀── public key B</div>
-
-  <h2>Replay and tamper protection</h2>
-  <p>Protected requests bind the site/installation identity to the HTTP method, request path, body digest, timestamp and nonce. The API rejects expired, replayed, tampered, wrong-site, inactive or revoked-key requests.</p>
-
-  <h2>Tenant isolation</h2>
-  <p>Customer-supplied resource identifiers are not sufficient authorization by themselves. Protected resource access is checked against the authenticated installation/site. Controlled migration tests verified that Sajie, Slab staging and fresh-customer installations could not use one another's identities to access resources.</p>
-
-  <h2>Clone/copy resistance</h2>
-  <p>Copying plugin files or a WordPress database is not intended to create a second authorized Pro installation. The API's site/installation binding and signing identity must still match the registered customer installation. Legitimate domain/site changes should use a controlled rebind or reactivation process.</p>
-
-  <h2>Provider credential isolation</h2>
-  <p>The upstream AI provider key is stored in protected Barnd API server configuration. It is not returned to WordPress, written into customer plugin settings, embedded in browser JavaScript or required during normal customer onboarding.</p>
-
-  <h2>Capabilities are server-authoritative</h2>
-  <p>Analysis, drafting, mutation, publishing and other consequential actions can be treated as separate capabilities. A Pro licence does not mean every action is automatically enabled. Customer defaults remain conservative; automatic publishing is not the general default.</p>
-
-  <h2>Rate and cost controls</h2>
-  <p>Central provider routing allows Barnd AI to apply per-site request limits, provider-usage controls and budget rules before an AI request is sent upstream. This also prevents one WordPress site from receiving a reusable provider credential that could bypass those controls.</p>
-
-  <h2>Rotation and revocation</h2>
-  <p>A compromised site identity can be revoked or rotated independently. That should not require distributing a new AI provider credential to every customer, because provider credentials remain behind the Barnd API boundary.</p>
-
-  <h2>What this security model does not claim</h2>
-  <p>No WordPress plugin can make a fully compromised server trustworthy. If an attacker controls the operating system or WordPress host, local secrets may be exposed. The architecture is designed to reduce cross-customer impact, block replay/tampering, keep upstream provider keys out of WordPress and make individual customer identities revocable.</p>
-
-  <h2>Security validation status</h2>
-  <p>The final SEO release inspection used sealed repository security scans, security-diff review, multi-site negative tests, runtime/source attestation, TLS/permission checks and supervisor gates. Native Deep Scan was unavailable in the final host, so the documented multi-pass Standard fallback was used rather than claiming a Deep Scan that did not run.</p>
-
-  <p style="margin-top:32px"><a class="button" href="docs.html">Read setup docs</a> <a class="button secondary" href="privacy.html">Privacy</a></p>
-</main>
-<footer><div class="wrap footer-row"><span>© 2026 Barnd AI.</span><div class="footer-links"><a href="seo-pro.html">SEO Pro</a><a href="pricing.html">Pricing</a><a href="docs.html">Docs</a><a href="faq.html">FAQ</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></div></div></footer>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#079b84"><meta name="description" content="How Barnd AI SEO protects WordPress customers: site-aware signed requests, entitlement checks, provider-key isolation, review-first changes, and bounded rollback."><link rel="canonical" href="https://barndai.com/security.html"><meta property="og:title" content="Security — Barnd AI SEO"><meta property="og:description" content="Practical security boundaries for a connected WordPress SEO workflow."><title>Security — Barnd AI SEO</title><link rel="stylesheet" href="styles.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Barnd AI SEO security","url":"https://barndai.com/security.html"}</script></head><body>
+<header><div class="wrap nav"><a class="brand" href="index.html"><span class="brand-mark">B</span><span>Barnd <span>AI</span></span></a><nav class="desktop-nav" aria-label="Primary"><a href="seo-pro.html">SEO Pro</a><a href="features.html">Features</a><a href="pricing.html">Pricing</a><a href="compare/">Compare</a><a href="docs.html">Docs</a><a href="support.html">Support</a><a class="nav-cta" href="pricing.html">Get started</a></nav><details class="mobile-menu"><summary>Menu</summary><nav aria-label="Mobile"><a href="seo-pro.html">SEO Pro</a><a href="features.html">Features</a><a href="pricing.html">Pricing</a><a href="compare/">Compare</a><a href="docs.html">Docs</a><a href="support.html">Support</a></nav></details></div></header>
+<main><section class="hero compact"><div class="wrap"><p class="eyebrow">Security</p><h1>Helpful AI should not mean handing over control.</h1><p class="lead">Barnd separates your WordPress site, your entitlement, and the AI provider boundary. The result is a workflow that can fail closed and explain what happened.</p></div></section><section class="section"><div class="wrap"><div class="grid"><article class="card"><div class="card-icon">⌁</div><h3>Provider-key isolation</h3><p>Upstream AI credentials stay on the Barnd API server. WordPress receives an authorized response, not a provider secret.</p></article><article class="card"><div class="card-icon blue">◉</div><h3>Site-aware identity</h3><p>Signed Pro requests bind to the installation, site, request body, timestamp, and nonce. A copied request should not become another site’s access.</p></article><article class="card"><div class="card-icon yellow">▣</div><h3>Bounded mutations</h3><p>Supported adapters target one exact metadata field, attachment, visible FAQ, or validated internal-link source. There is no generic arbitrary-content writer.</p></article><article class="card"><div class="card-icon">✓</div><h3>Capability + nonce</h3><p>Apply and rollback require the appropriate WordPress capability and a valid nonce, then re-resolve the authoritative server state.</p></article><article class="card"><div class="card-icon blue">↻</div><h3>Freshness checks</h3><p>If a page or media value changed after an AI draft was created, Apply stops and asks for a fresh review.</p></article><article class="card"><div class="card-icon yellow">↩</div><h3>Specific rollback</h3><p>Each applied draft retains bounded prior state and an audit event so one change can be restored without reverting the whole site.</p></article></div></div></section><section class="section alt"><div class="wrap split"><div><p class="eyebrow blue">What we protect</p><h2>One customer should never become another customer.</h2><p class="lead">Entitlements, site binding, request signatures, replay protection, and usage limits are checked at the service boundary. Provider failure returns a safe error rather than an unverified result.</p></div><div class="codebox">WordPress
+  → signed request
+Barnd API
+  → identity + entitlement + nonce
+AI provider
+  → normalized suggestion
+WordPress review queue</div></div></section><section class="section tint"><div class="wrap narrow"><h2>What not to send support</h2><p>Support will never need your WordPress password, database password, payment-card details, private Ed25519 key, provider credential, or raw activation key. Send the site URL, plugin versions, and a non-secret diagnostic code instead.</p><p><a class="button" href="support.html">Contact support</a></p></div></section></main><footer><div class="wrap footer-row"><span>© 2026 Barnd AI · Security boundaries in plain language.</span><div class="footer-links"><a href="docs.html">Docs</a><a href="faq.html">FAQ</a><a href="pricing.html">Pricing</a><a href="support.html">Support</a><a href="privacy.html">Privacy</a></div></div></footer></body></html>
